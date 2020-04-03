@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+pfx=${1:-TARGET}
+
+eval platform=\${${pfx}PLATFORM}
+
+die() {
+    echo $@ >&2
+    exit 1
+}
+
+# The python platform tags aren't documented anywhere??
+
+case $platform in
+    linux/amd64) echo linux_x86_64 ;;
+    linux/386|linux/386/*) echo linux_i686 ;;
+    windows/386) echo win32 ;;
+
+    *) die "Unsupported OS/ARCH/VARIANT: $platform" ;;
+esac

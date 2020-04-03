@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+
+pfx=${1:-TARGET}
+
+eval platform=\${${pfx}PLATFORM}
+
+die() {
+    echo $@ >&2
+    exit 1
+}
+
+case $platform in
+    linux/amd64) echo amd64 ;;
+    linux/386|linux/386/*) echo i386 ;;
+    linux/arm64) echo arm64 ;;
+    linux/arm/v6) echo armel ;;
+    linux/arm/v7) echo armhf ;;
+    linux/mips|linux/mips/*) echo mips ;;
+    linux/mipsle|linux/mipsle/hardfloat) echo mipsel ;;
+    linux/mips64le|linux/mips64le/hardfloat) echo mips64el ;;
+    linux/ppc64le|linux/ppc64le/*) echo ppc64el ;;
+    linux/s390x) echo s390x ;;
+
+    *) die "Unsupported OS/ARCH/VARIANT: $platform" ;;
+esac
