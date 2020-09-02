@@ -41,17 +41,16 @@ jobs:
       - name: Docker login
         if: success()
         env:
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          CR_PAT: ${{ secrets.CR_PAT }}
         run: |
-          docker login --username "${{ secrets.DOCKER_USERNAME }}" \
-            --password "${DOCKER_PASSWORD}"
+          docker login ghcr.io --username "${GITHUB_ACTOR}" --password "${CR_PAT}"
 
       - name: Run buildx
         run: |
           docker buildx build \
             --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x \
             --output type=image,push=true \
-            --tag "${{ secrets.DOCKER_USERNAME }}/scapy:${{ steps.prepare.outputs.tag }}" \
+            --tag "ghcr.io/$GITHUB_ACTOR/scapy:${{ steps.prepare.outputs.tag }}" \
             --file Dockerfile .
 
       - name: Clear
