@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:experimental
-FROM --platform=$BUILDPLATFORM python:3.9.6-slim-buster AS build
+FROM --platform=$BUILDPLATFORM python:3.9.7-slim-buster AS build
 
 # Theoretically the following requires --platform $(pyplatform) .. but
 #  a) this doesn't work on the scapy package (no wheel) and
@@ -9,7 +9,7 @@ FROM --platform=$BUILDPLATFORM python:3.9.6-slim-buster AS build
 #COPY pyplatform /usr/local/bin/
 RUN pip install --user --compile scapy
 
-FROM --platform=$BUILDPLATFORM python:3.9.6-slim-buster AS tcpdump
+FROM --platform=$BUILDPLATFORM python:3.9.7-slim-buster AS tcpdump
 
 ARG TARGETPLATFORM
 
