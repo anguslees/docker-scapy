@@ -19,7 +19,7 @@ RUN apt-get update
 
 RUN apt-get install -qy --no-install-recommends tcpdump:$(debplatform)
 
-FROM python:3.9.7-slim-buster@sha256:1a37850430255048917ef6f07d48af19b126bbd17ccf502abf4ebece0a138c34
+FROM python:3.10.0-slim-buster@sha256:c26e3dacb8ca51a293504ff752995c0e9e77b1bfbf8584d7cd4f3f6e03f53a81
 
 # Invoked by scapy to compile BPF filters
 COPY --from=tcpdump /usr/sbin/tcpdump /usr/bin/
