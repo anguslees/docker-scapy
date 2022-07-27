@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:experimental
-FROM --platform=$BUILDPLATFORM python:3.10.5-slim-buster@sha256:1839c4f9dc6e3803a7cfbb101996df7cd9249553d4dde020fe34430703e8c47e AS build
+FROM --platform=$BUILDPLATFORM python:3.10.5-slim-buster@sha256:f599136028a596be1d2d3f2dae2d0364fe058a1069eb5b643925024223fff293 AS build
 
 # Theoretically the following requires --platform $(pyplatform) .. but
 #  a) this doesn't work on the scapy package (no wheel) and
@@ -9,7 +9,7 @@ FROM --platform=$BUILDPLATFORM python:3.10.5-slim-buster@sha256:1839c4f9dc6e3803
 #COPY pyplatform /usr/local/bin/
 RUN pip install --user --compile scapy
 
-FROM --platform=$BUILDPLATFORM python:3.10.5-slim-buster@sha256:1839c4f9dc6e3803a7cfbb101996df7cd9249553d4dde020fe34430703e8c47e AS tcpdump
+FROM --platform=$BUILDPLATFORM python:3.10.5-slim-buster@sha256:f599136028a596be1d2d3f2dae2d0364fe058a1069eb5b643925024223fff293 AS tcpdump
 
 ARG TARGETPLATFORM
 
@@ -19,7 +19,7 @@ RUN apt-get update
 
 RUN apt-get install -qy --no-install-recommends tcpdump:$(debplatform)
 
-FROM python:3.10.5-slim-buster@sha256:1839c4f9dc6e3803a7cfbb101996df7cd9249553d4dde020fe34430703e8c47e
+FROM python:3.10.5-slim-buster@sha256:f599136028a596be1d2d3f2dae2d0364fe058a1069eb5b643925024223fff293
 
 # Invoked by scapy to compile BPF filters
 COPY --from=tcpdump /usr/sbin/tcpdump /usr/bin/
