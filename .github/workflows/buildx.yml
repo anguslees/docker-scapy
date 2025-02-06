@@ -64,7 +64,7 @@ jobs:
             ${{ runner.os }}-buildx-
 
       - name: Build
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a # tag=v2
+        uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991 # v6
         with:
           context: .
           file: ./Dockerfile
